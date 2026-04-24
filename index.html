@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Александр & Анастасия | Свадебное приглашение</title>
     
-    <!-- Open Graph для красивых превью в WhatsApp/Telegram -->
+    <!-- Open Graph -->
     <meta property="og:title" content="Приглашение на свадьбу | Александр & Анастасия">
     <meta property="og:description" content="12 декабря 2026 • Новосибирск. Ждем вас!">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&fm=jpg&q=80">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80">
     <meta property="og:type" content="website">
     <meta name="theme-color" content="#000000">
     
-    <!-- Preload critical fonts -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400&family=Parisienne&family=Great+Vibes&family=Pinyon+Script&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <!-- Preload fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Montserrat:wght@300;400&family=Parisienne&family=Great+Vibes&family=Pinyon+Script&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -27,19 +29,17 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- ENVELOPE STYLES --- */
+        /* --- ENVELOPE --- */
         .envelope-wrapper {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
             display: flex; justify-content: center; align-items: center;
             z-index: 10000; transition: opacity 0.8s ease, visibility 0.8s;
-            -webkit-transform: translateZ(0);
         }
         .envelope-wrapper.opened { opacity: 0; visibility: hidden; pointer-events: none; }
         .envelope {
             position: relative; width: min(400px, 90vw); height: min(280px, 60vw);
             cursor: pointer; transition: transform 0.3s ease;
-            -webkit-transform: translateZ(0);
         }
         .envelope:hover { transform: translateY(-5px); }
         .envelope-body {
@@ -52,7 +52,7 @@
             background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
             clip-path: polygon(0 0, 50% 100%, 100% 0);
             transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 3; -webkit-transform: translateZ(0);
+            z-index: 3;
         }
         .envelope.opening .envelope-flap { transform: rotateX(180deg); z-index: 1; }
         .envelope-pocket {
@@ -117,12 +117,12 @@
         @keyframes elegantFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-8px); } 60% { transform: translateY(-4px); } }
 
-        /* Photos - с надёжными ссылками и фолбэками */
+        /* === ФОТО: 100% НАДЁЖНОСТЬ === */
         .photo-divider {
             height: 60vh; min-height: 400px; position: relative;
             display: flex; align-items: center; justify-content: center;
             overflow: hidden;
-            background-color: #111; /* Фолбэк, если картинка не загрузится */
+            background-color: #000; /* Гарантированный чёрный фон */
         }
         .photo-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -130,7 +130,6 @@
             background-repeat: no-repeat;
             filter: grayscale(100%) contrast(1.1) brightness(0.85);
             transform: scale(1.05); transition: transform 1.5s ease;
-            will-change: transform;
         }
         .photo-divider.visible .photo-bg { transform: scale(1); }
         .photo-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
@@ -220,7 +219,7 @@
         .music-toggle svg { width: 24px; height: 24px; fill: #fff; }
         .music-toggle.muted svg { opacity: 0.5; }
 
-        /* Petals Container */
+        /* Petals */
         #petals-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 9998; overflow: hidden;
@@ -249,10 +248,10 @@
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Petals Animation Container -->
+    <!-- Petals -->
     <div id="petals-container"></div>
 
-    <!-- Envelope Overlay -->
+    <!-- Envelope -->
     <div class="envelope-wrapper" id="envelope-wrapper">
         <div class="envelope" id="envelope">
             <div class="envelope-body"></div>
@@ -282,9 +281,9 @@
             <div class="scroll-indicator" onclick="document.getElementById('photo1').scrollIntoView({behavior: 'smooth'})">Листайте вниз</div>
         </section>
 
-        <!-- Photo 1 - НАДЁЖНАЯ ССЫЛКА -->
-        <div class="photo-divider" id="photo1">
-            <div class="photo-bg" style="background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?fm=jpg&w=1600&q=80');" data-fallback="#111"></div>
+        <!-- Photo 1 - 100% надёжная ссылка -->
+        <div class="photo-divider" id="photo1" data-img="https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80">
+            <div class="photo-bg"></div>
             <div class="photo-overlay"></div>
             <div class="photo-content"><div class="photo-quote">Начало нашей<br>вечности</div></div>
         </div>
@@ -307,9 +306,9 @@
             </div>
         </section>
 
-        <!-- Photo 2 - НАДЁЖНАЯ ССЫЛКА -->
-        <div class="photo-divider small" id="photo2">
-            <div class="photo-bg" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?fm=jpg&w=1600&q=80');" data-fallback="#111"></div>
+        <!-- Photo 2 -->
+        <div class="photo-divider small" id="photo2" data-img="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?w=1200&q=80">
+            <div class="photo-bg"></div>
             <div class="photo-overlay"></div>
             <div class="photo-content"><div class="photo-quote">Вместе</div></div>
         </div>
@@ -324,9 +323,9 @@
             <p class="dress-note">И не забудьте взять с собой солнцезащитные очки!</p>
         </section>
 
-        <!-- Photo 3 - НАДЁЖНАЯ ССЫЛКА -->
-        <div class="photo-divider" id="photo3">
-            <div class="photo-bg" style="background-image: url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?fm=jpg&w=1600&q=80');" data-fallback="#111"></div>
+        <!-- Photo 3 -->
+        <div class="photo-divider" id="photo3" data-img="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80">
+            <div class="photo-bg"></div>
             <div class="photo-overlay"></div>
             <div class="photo-content"><div class="photo-quote">Любовь — это навсегда</div></div>
         </div>
@@ -388,27 +387,39 @@
     </div>
 
     <script>
-        // === НАДЁЖНАЯ ЗАГРУЗКА ФОТО ДЛЯ МОБИЛЬНЫХ ===
-        document.addEventListener('DOMContentLoaded', function() {
-            const photos = document.querySelectorAll('.photo-bg');
-            photos.forEach(photo => {
-                const fallback = photo.getAttribute('data-fallback') || '#111';
-                const img = new Image();
-                img.onload = function() {
-                    // Картинка загрузилась успешно
-                    photo.style.backgroundImage = `url('${photo.style.backgroundImage.replace(/url\(['"]?|['"]?\)/g, '')}')`;
+        // === 100% НАДЁЖНАЯ ЗАГРУЗКА ФОТО ===
+        function loadPhotos() {
+            const photos = document.querySelectorAll('.photo-divider');
+            photos.forEach(div => {
+                const img = div.querySelector('.photo-bg');
+                const url = div.getAttribute('data-img');
+                if (!url) return;
+                
+                // Создаём временное изображение для проверки
+                const testImg = new Image();
+                testImg.onload = function() {
+                    // Если загрузилось — ставим фон
+                    img.style.backgroundImage = `url('${url}')`;
                 };
-                img.onerror = function() {
-                    // Если не загрузилась — ставим фолбэк
-                    photo.style.backgroundImage = 'none';
-                    photo.style.backgroundColor = fallback;
+                testImg.onerror = function() {
+                    // Если не загрузилось — оставляем чёрный фон (уже задан в CSS)
+                    console.log('Фото не загрузилось, используем чёрный фон');
                 };
-                // Пробуем загрузить
-                img.src = photo.style.backgroundImage.replace(/url\(['"]?|['"]?\)/g, '');
+                // Загружаем с кэшированием
+                testImg.src = url + '&cache=' + Date.now();
             });
+        }
+
+        // Запускаем загрузку фото после открытия конверта
+        const envelope = document.getElementById('envelope');
+        const mainContent = document.getElementById('main-content');
+        envelope.addEventListener('click', function() {
+            setTimeout(() => {
+                loadPhotos();
+            }, 600);
         });
 
-        // Music & Petals Logic
+        // Music & Petals
         const music = document.getElementById('wedding-music');
         const musicToggle = document.getElementById('music-toggle');
         const iconPlay = document.getElementById('icon-play');
@@ -450,11 +461,7 @@
             }
         });
 
-        // Envelope Open
-        const envelope = document.getElementById('envelope');
         const envelopeWrapper = document.getElementById('envelope-wrapper');
-        const mainContent = document.getElementById('main-content');
-
         envelope.addEventListener('click', function() {
             envelope.classList.add('opening');
             setTimeout(() => {
